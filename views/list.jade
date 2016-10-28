@@ -1,0 +1,25 @@
+include ./layout
+block content
+	div.jumbotron
+		div.container
+			div.row
+				h1= title
+				p Welcome to your personal film list. Click the film title to go to see reviews
+	div.container
+		div.row
+			div.col-md-4
+			div.col-md-4
+				ul.list-group
+					each film in films
+						li.list-group-item
+							if film.poster
+								img(src="film.poster") 
+							b 
+								a(href="./#{film.id}/render") #{film.name}
+							| , #{film.year}
+							p
+							|	Actors: #{film.actors}
+							p
+							|	Genres: #{film.genres}
+
+			div.col-md-4

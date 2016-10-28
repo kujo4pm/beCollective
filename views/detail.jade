@@ -1,0 +1,52 @@
+include ./layout
+block content
+	div.jumbotron
+		div.container
+			div.row
+				h1= film.name
+				p See the reviews for the film #{film.name}
+	div.container
+		div.row
+			div.col-md-4
+			div.col-md-4
+				if film.poster
+					img(src="film.poster") 
+				b
+					| Released in:
+				| #{film.year}
+				p
+				b
+					| Starring: 
+				| #{film.actors}
+				p
+				b
+					| Genres: 
+				| #{film.genres}
+				p
+				b
+					|	Runtime: 
+				| #{film.runtime}
+				ul.list-group
+					each review in film.reviews
+						li.list-group-item #{review.author}
+					li.list-group-item
+						p
+							strong
+								| Create New Review
+						form
+							div.form-group
+								label(for="review")
+									| Review:
+								textarea(class="form-control" rows="3" id="review")
+							div.form-group
+								label(for="stars")
+									| Stars (0-5):
+								input(class="form-control" id="stars")
+							div.form-group
+								label(for="author")
+									| Your name:
+								input(class="form-control" id="author")
+							div.form-group
+								button.btn.btn-default(type="submit")
+									| Submit
+			div.col-md-4

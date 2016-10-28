@@ -1,0 +1,28 @@
+{
+  "name": "be-collective-omdb-wrapper",
+  "description": "The BeCollective OMDb API Coding Challenge.",
+  "main": "app.js",
+  "authors": [
+    "kujo4pm@github.com"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "API",
+    "Be",
+    "Collective",
+    "OMDb",
+    "film",
+    "reviews"
+  ],
+  "homepage": "https://github.com/kujo4pm/beCollective",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jade-bootstrap": "*"
+  }
+}

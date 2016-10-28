@@ -1,0 +1,23 @@
+include ./layout
+block content
+	div.jumbotron
+		div.container
+			div.row
+				h1= title
+				p Welcome to your personal film list. Search for a film and click Import when you would like to copy it into your personal film list
+	div.container
+		div.row
+			div.col-md-4
+			div.col-md-4
+				form#search
+					div.form-group
+						label(for="name")
+							| Film name:
+						input(class="form-control" id="name")
+					div.panel.panel-default.hidden#results
+					div.form-group
+						button.btn.btn-default.pull-right(type="submit")
+									| Import
+			div.col-md-4
+block scripts
+	script(src="/javascripts/default.js")
