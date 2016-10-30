@@ -10,7 +10,8 @@ block content
 			div.col-md-4
 			div.col-md-4
 				if film.poster
-					img(src="film.poster") 
+					div
+						img(src="#{film.poster}") 
 				b
 					| Released in:
 				| #{film.year}
@@ -26,27 +27,26 @@ block content
 				b
 					|	Runtime: 
 				| #{film.runtime}
-				ul.list-group
-					each review in film.reviews
-						li.list-group-item #{review.author}
-					li.list-group-item
-						p
-							strong
-								| Create New Review
-						form
-							div.form-group
-								label(for="review")
-									| Review:
-								textarea(class="form-control" rows="3" id="review")
-							div.form-group
-								label(for="stars")
-									| Stars (0-5):
-								input(class="form-control" id="stars")
-							div.form-group
-								label(for="author")
-									| Your name:
-								input(class="form-control" id="author")
-							div.form-group
-								button.btn.btn-default(type="submit")
-									| Submit
+				h1
+					strong
+						| Existing Reviews
+				div.container#reviews
+				h1
+					strong
+						| Save Review
+				form#saveReview
+					div.form-group
+						label(for="review")
+							| Review:
+						textarea(class="form-control" rows="3" id="review")
+					div.form-group
+						label(for="stars")
+							| Stars (0-5):
+						input(class="form-control" id="stars" min="0" max="5")
+					div.form-group
+						button.btn.btn-default#save(type="submit")
+							| save new
 			div.col-md-4
+include ./footer
+script
+	| refresh();

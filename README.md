@@ -16,7 +16,7 @@ If I were to have more time I would:
 * Extend the search capabilities to include other fields
 * Stronger serverside and clientside validation
 * Implement the solution as a single-page application rather than moving between the 3 pages
-
+* Pagination for filmlist and reviews
 
 
 ## Code Example
@@ -26,7 +26,8 @@ Show what the library does as concisely as possible, developers should be able t
 
 ## Installation
 
-* Ensure Mongo exists - the API will connect on the default port (27017)
+* Ensure Mongo exists - the API will connect on the default port (27017) and run in a database beCollective
+* Run 
 
 
 ## API Reference

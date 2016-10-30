@@ -21,16 +21,16 @@ router.post('/', (req, res, next)=> {
 	Films.findOne({_id:req.params.id})
 	.then(film=>{
 		film.reviews.push({
-			stars: Integer.parseInt(req.body.stars),
-			review: req.body.review,
-			author: req.body.author
+			stars: parseInt(req.body.stars),
+			review: req.body.review
 		});
 		return film.save();
 	})
 	.then(film=>{
-		return res.json({success:true, message: 'Review Saved'});
+		return res.json({success:true, message: 'Review Saved', id: film.reviews.length - 1});
 	})
 	.catch(err =>{
+		console.log(err);
 		return next(err);
 	});
 });
@@ -40,9 +40,8 @@ router.put('/:revId', (req, res, next)=> {
 	Films.findOne({_id:req.params.id})
 	.then(film=>{
 		film.reviews[req.params.revId] = {
-			stars: Integer.parseInt(req.body.stars),
-			review: req.body.review,
-			author: req.body.author
+			stars: parseInt(req.body.stars),
+			review: req.body.review
 		};
 		return film.save();
 	}).then(film=>{

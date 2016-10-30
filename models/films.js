@@ -13,10 +13,6 @@ var reviewSchema = Schema({
 	review: {
 		type: String,
 		required: true
-	},
-	author: {
-		type: String,
-		required:true
 	}
 },
 {
@@ -26,8 +22,7 @@ var reviewSchema = Schema({
 var filmSchema = Schema({
 	name:{
 		type:String,
-		required: true,
-		unique: true
+		required: true
 	},
 	year:{
 		type:String,
@@ -58,7 +53,8 @@ var filmSchema = Schema({
 	reviews: [reviewSchema]
 },
 	{
-		timestamps:true	});
+		timestamps:true	
+	});
 
 var Films = mongoose.model('Film', filmSchema);
 

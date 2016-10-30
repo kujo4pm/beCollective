@@ -13,7 +13,8 @@ block content
 					each film in films
 						li.list-group-item
 							if film.poster
-								img(src="film.poster") 
+								div
+									img(src="#{film.poster}") 
 							b 
 								a(href="./#{film.id}/render") #{film.name}
 							| , #{film.year}
@@ -23,3 +24,4 @@ block content
 							|	Genres: #{film.genres}
 
 			div.col-md-4
+include ./footer
