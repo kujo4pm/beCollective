@@ -22,7 +22,7 @@ If I were to have more time I would:
 ## Repo structure
 
 The solution uses the standard express generator structure with:
-
+```
  '|-- root directory',
   '    |-- app.js - contents of express server root',
   '    |-- bower.json - bower config',
@@ -51,7 +51,7 @@ The solution uses the standard express generator structure with:
   '        |-- list.jade - HTML template for list of imported films',
   '        |-- search.jade - HTML template for search and import item',
   ''
-
+```
 
 ## Installation
 
