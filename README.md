@@ -61,6 +61,7 @@ The solution uses the standard express generator structure with:
 * Run "npm install" in repo directory
 * Run "bower install" in repo directory
 * Run "npm start"
+* Go to localhost:3000 in your browser (this is the default port which can be changed in the config file)
 
 
 ## API Reference
