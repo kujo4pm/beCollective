@@ -1,5 +1,4 @@
 var express = require('express');
-var requestify = require('requestify');
 var router = express.Router({mergeParams: true});
 var Films = require('../models/films');
 
@@ -58,6 +57,19 @@ router.delete('/:revId', (req, res, next)=> {
 		return film.save();
 	}).then(film=>{
 		return res.json({success:true, message: 'Review Deleted'});
+	}).catch(err =>{
+		return next(err);
+	});
+});
+//will include standard CRUD operations for reviews
+router.get('/:revId', (req, res, next)=> {
+	console.log('Return review' + req.params.revId + ' for film:', req.params.id);
+	//return all reviews for film :id
+	Films.findOne({_id:req.params.id})
+	.then(film=>{
+		if(!film.reviews[req.params.revId])
+			return res.status(404).json({success:false});
+		return res.json(film.reviews[req.params.revId]);
 	}).catch(err =>{
 		return next(err);
 	});

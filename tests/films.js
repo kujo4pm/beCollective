@@ -1,8 +1,11 @@
 var test = require('tape');
 var app = require('../app');
 var request = require('supertest');
-
-
+var mongoose = require('mongoose');	
+var tapSpec = require('tap-spec');
+test.createStream()
+  .pipe(tapSpec())
+  .pipe(process.stdout);
 
 //testing for the films endpoints
 test('a series of tests against the Film endpoint:', function (t) {
@@ -23,10 +26,10 @@ test('a series of tests against the Film endpoint:', function (t) {
 		// and will not validate any of the return values
 		request(app)
 		.get('/films')
-		.send(sampleMovie)
 		.set('Accept', 'application/json')
 		.expect('Content-Type', /json/)
-		.expect(200, function(err, res) {
+		.expect(200)
+		.end( function(err, res) {
 			newTest.end();
 		});
 
@@ -38,7 +41,8 @@ test('a series of tests against the Film endpoint:', function (t) {
 		.send(sampleMovie)
 		.set('Accept', 'application/json')
 		.expect('Content-Type', /json/)
-		.expect(200, function(err, res) {
+		.expect(200)
+		.end( function(err, res) {
 			newTest.same(res.body.success, true,  'film successfully posted'); 
 			sampleMovieId = res.body.id;
 			newTest.end();
@@ -51,7 +55,8 @@ test('a series of tests against the Film endpoint:', function (t) {
 		.get('/films/' + sampleMovieId)
 		.set('Accept', 'application/json')
 		.expect('Content-Type', /json/)
-		.expect(200, function(err, res) {
+		.expect(200)
+		.end( function(err, res) {
 			newTest.same(res.body.name, sampleMovie.Title,  'returned name is correct'); 
 			newTest.same(res.body.runtime, sampleMovie.Runtime,  'returned runtime is correct'); 
 			newTest.same(res.body.actors, sampleMovie.Actors,  'returned actors is correct'); 
@@ -70,7 +75,8 @@ test('a series of tests against the Film endpoint:', function (t) {
 		.delete('/films/' + sampleMovieId)
 		.set('Accept', 'application/json')
 		.expect('Content-Type', /json/)
-		.expect(200, function(err, res) {
+		.expect(200)
+		.end( function(err, res) {
 			newTest.same(res.body.success, true,  'film was deleted'); 
 			newTest.same(res.body.message, 'Film removed',  'message was correct'); 
 			newTest.end();
@@ -83,12 +89,15 @@ test('a series of tests against the Film endpoint:', function (t) {
 		.get('/films/' + 0)
 		.set('Accept', 'application/json')
 		.expect('Content-Type', /json/)
-		.expect(404, function(err, res) {
+		.expect(404)
+		.end( function(err, res) {
 			//newTest //no error
 			newTest.end();
+
 		});
 
-
+		t.end();
+		mongoose.disconnect();
 	});
-t.end();	
+
 });

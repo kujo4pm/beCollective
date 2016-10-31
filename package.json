@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "test": "find tests\\* | node"
   },
   "dependencies": {
     "body-parser": "~1.15.1",
@@ -40,6 +41,7 @@
     "bower": "^1.7.9",
     "faucet": "0.0.1",
     "supertest": "^2.0.1",
+    "tap-spec": "^4.1.1",
     "tape": "^4.6.2",
     "tapes": "^4.1.0"
   }

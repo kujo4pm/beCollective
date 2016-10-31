@@ -119,7 +119,7 @@
 	{
 		$.ajax({
 			type: (reviewId === undefined) ? "POST" : "PUT",
-			url: $(location).attr('pathname').split('/render')[0] + '/reviews/' + (!reviewId ? "" : reviewId),
+			url: $(location).attr('pathname').split('/render')[0] + '/reviews/' + ((reviewId === undefined) ? "" : reviewId),
 			data: { //send to API endpoint
 				stars: $('#stars').val(),
 				review:$('#review').val()						

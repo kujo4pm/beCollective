@@ -6,11 +6,11 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var routes = require('./routes/index');
 var films = require('./routes/films');
-
+var config = require('./config');
 var app = express();
 app.set('title', 'Films Imported');
 //mongoose connection
-var url = 'mongodb://localhost:27017/beCollective';
+var url = 'mongodb://localhost:' +  config.MONGO_PORT + '/' + config.DB_NAME;
 mongoose.Promise = global.Promise;
 mongoose.connect(url);
 var db = mongoose.connection;

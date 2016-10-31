@@ -1,5 +1,4 @@
 var express = require('express');
-var requestify = require('requestify');
 var router = express.Router();
 var Films = require('../models/films');
 
@@ -55,6 +54,15 @@ router.get('/', (req, res, next)=> {
 		return next(err);
 	});
 });
+router.get('/render', (req, res, next)=> {
+	//return all imported films
+	Films.find({})
+	.then(films=>{
+		res.render('list', { title: req.app.get('title'), films: films});
+	}).catch(err =>{
+		return next(err);
+	});
+});
 router.get('/:id', (req, res, next)=> {
 	//return specified film
 	Films.findOne({_id:req.params.id})
@@ -77,16 +85,7 @@ router.delete('/:id', (req, res, next)=> {
 		return next(err);
 	});
 });
-router.get('/render', (req, res, next)=> {
-	//return all imported films
-	Films.find({})
-	.then(films=>{
 
-		res.render('list', { title: req.app.get('title'), films: films});
-	}).catch(err =>{
-		return next(err);
-	});
-});
 
 router.get('/:id/render', (req, res, next)=> {
 	//return detail page for film

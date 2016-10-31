@@ -1,10 +1,13 @@
-var tape = require('tape');
-var tapes = require('tapes');
-var test = tapes(tape);
+var test = require('tape');
 var app = require('../app');
 var request = require('supertest');
+var mongoose = require('mongoose');
 var sampleMovieId,sampleReviewId;
-
+var tapSpec = require('tap-spec');
+ 
+test.createStream()
+  .pipe(tapSpec())
+  .pipe(process.stdout);
 
 //testing for the review endpoints
 
@@ -16,7 +19,7 @@ test('a suite of tests to test the Review Endpoints', function (t) {
 		"Runtime" : "129 mins", 
 		"Actors" : "William Holden, Gloria Swanson, Erich von Stroheim, Nancy Olson", 
 		"imdbID" : "tt" + new Date().getTime(),
-		"Poster" : "<poster>",
+		"Poster" : "https://images-na.ssl-images-amazon.com/images/M/MV5BMTc3NDYzODAwNV5BMl5BanBnXkFtZTgwODg1MTczMTE@._V1_SX300.jpg",
 		"Genre" : "classic, drama",
 		"randomField" :" this should not be ingested"
 
@@ -39,9 +42,10 @@ test('a suite of tests to test the Review Endpoints', function (t) {
 	.send(sampleMovie)
 	.set('Accept', 'application/json')
 	.expect('Content-Type', /json/)
-	.expect(200, function(err, res) {
+	.expect(200)
+	.end(function(err, res) {
 		sampleMovieId = res.body.id;
-	}).then(_=>{
+
 
 		t.test('testing posting new review', function (newTest) {
 			request(app)
@@ -77,8 +81,7 @@ test('a suite of tests to test the Review Endpoints', function (t) {
 			.set('Accept', 'application/json')
 			.expect('Content-Type', /json/)
 			.expect(200, function(err, res) {
-				newTest.same(res.body.stars, editedReview.stars,  'returned stars is correct'); 
-				newTest.same(res.body.review, editedReview.review,  'returned review is correct'); 
+				newTest.same(res.body.success, true,  'film successfully posted'); 
 				newTest.end();
 			});
 
@@ -103,22 +106,22 @@ test('a suite of tests to test the Review Endpoints', function (t) {
 			.set('Accept', 'application/json')
 			.expect('Content-Type', /json/)
 			.expect(404, function(err, res) {
-				newTest //no error
+				t.comment('testing deleting the sample film');
+				request(app)
+				.delete('/films/' + sampleMovieId)
+				.set('Accept', 'application/json')
+				.expect('Content-Type', /json/)
+				.expect(200, function(err, res) {
+					t.end();
+					mongoose.disconnect();
+				});
 				newTest.end();
 			});
 
 
 		});
-	}).then(_=>
-	{
-		t.comment('testing deleting the sample film');
-		request(app)
-		.delete('/films/' + sampleMovieId)
-		.set('Accept', 'application/json')
-		.expect('Content-Type', /json/)
-		.expect(200, function(err, res) {
-			t.end();
-		});
+
+
 	});
-	
+
 });
